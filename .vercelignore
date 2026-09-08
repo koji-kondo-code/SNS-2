@@ -1,0 +1,10 @@
+.env
+.env.*
+.vercel
+node_modules
+.runtime
+data
+*.log
+cloudflared*.log
+*.zip
+_deliverables

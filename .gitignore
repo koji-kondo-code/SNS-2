@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# local/env secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Vercel/local runtime
+.vercel/
+.vercel-deploy-client-login/
+.runtime/
+data/
+*.log
+cloudflared*.log
+
+# build/cache artifacts
+.next/
+dist/
+coverage/
+.pytest_cache/
+__pycache__/
+.DS_Store
+
+# generated handoff archives/checksums
+*.zip
+SHA256SUMS*.txt
+VERIFICATION_*.md
+_deliverables/

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instagram分析AIダッシュボード サンプル</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            instaPink: '#E1306C',
+            instaPurple: '#833AB4',
+            instaOrange: '#F77737',
+            instaYellow: '#FCAF45'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass { background: rgba(255,255,255,.84); backdrop-filter: blur(14px); }
+    .spark path { stroke-linecap: round; stroke-linejoin: round; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-orange-50 text-slate-900">
+  <main class="mx-auto max-w-7xl space-y-8 p-6">
+    <section class="rounded-[2rem] bg-gradient-to-r from-instaPink via-instaPurple to-instaOrange p-8 text-white shadow-2xl">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div class="min-w-0">
+          <p class="text-sm font-semibold opacity-90">影響なしサンプル / Instagram分析AIダッシュボード改修案</p>
+          <label class="mt-3 block text-xs font-semibold opacity-80">企業名（編集可）</label>
+          <input id="companyName" value="Ascent Business Consulting" class="mt-2 w-full rounded-2xl bg-white/15 px-4 py-3 text-3xl font-bold outline-none ring-1 ring-white/30 placeholder:text-white/60 focus:bg-white/20" />
+          <p class="mt-3 text-sm opacity-90">アカウント名（AI自動取得想定・表示のみ）：<strong>@ascentbusiness_consulting</strong></p>
+        </div>
+        <div class="glass flex flex-wrap items-center gap-3 rounded-2xl p-3 text-slate-800 shadow-sm ring-1 ring-white/70">
+          <span class="text-sm font-semibold">対象期間</span>
+          <input id="startDate" type="date" value="2026-07-01" class="rounded-xl border border-pink-100 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-300" />
+          <span class="text-slate-400">-</span>
+          <input id="endDate" type="date" value="2026-08-03" class="rounded-xl border border-pink-100 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pink-300" />
+        </div>
+      </div>
+    </section>
+
+    <section class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <article class="rounded-2xl bg-white/90 p-6 shadow-sm ring-1 ring-pink-100">
+        <p class="text-sm font-medium text-slate-500">Instagram再生数</p>
+        <div class="mt-3 flex items-end justify-between gap-4"><div><p class="text-3xl font-bold">39,300回</p><p class="date-range mt-1 text-sm text-slate-500">2026-07-01 - 2026-08-03</p></div><svg class="spark h-12 w-28 text-pink-500" viewBox="0 0 100 50"><path d="M4 42 L20 34 L36 37 L52 24 L68 18 L96 6" fill="none" stroke="currentColor" stroke-width="5"/></svg></div>
+      </article>
+      <article class="rounded-2xl bg-white/90 p-6 shadow-sm ring-1 ring-pink-100">
+        <p class="text-sm font-medium text-slate-500">リンククリック率</p>
+        <div class="mt-3 flex items-end justify-between gap-4"><div><p class="text-3xl font-bold">12.1%</p><p class="mt-1 text-sm text-slate-500">自己紹介リンク 241 ÷ プロフィールアクセス 2,000</p></div><svg class="spark h-12 w-28 text-purple-500" viewBox="0 0 100 50"><path d="M4 40 L22 38 L40 31 L58 25 L76 18 L96 10" fill="none" stroke="currentColor" stroke-width="5"/></svg></div>
+      </article>
+      <article class="rounded-2xl bg-white/90 p-6 shadow-sm ring-1 ring-pink-100"><p class="text-sm font-medium text-slate-500">純増フォロワー数</p><p class="mt-3 text-3xl font-bold">+428</p><p class="mt-1 text-sm text-slate-500">期間内のフォロー増加数</p></article>
+      <article class="rounded-2xl bg-white/90 p-6 shadow-sm ring-1 ring-pink-100"><p class="text-sm font-medium text-slate-500">インタラクション数</p><p class="mt-3 text-3xl font-bold">1,338</p><p class="mt-1 text-sm text-slate-500">いいね・コメント・保存・シェア合計</p></article>
+    </section>
+
+    <section class="grid gap-6 xl:grid-cols-3">
+      <article class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+        <h2 class="text-xl font-bold">男女比率</h2><p class="mt-1 text-sm text-slate-500">フォロワー/閲覧者属性</p>
+        <div class="mx-auto mt-6 flex h-44 w-44 items-center justify-center rounded-full bg-gradient-to-br from-pink-400 via-purple-500 to-orange-400 p-4"><div class="flex h-28 w-28 items-center justify-center rounded-full bg-white text-center"><div><p class="text-2xl font-bold">58%</p><p class="text-xs text-slate-500">女性比率</p></div></div></div>
+        <div class="mt-5 space-y-2 text-sm"><div class="flex justify-between"><span>女性</span><b>58%</b></div><div class="flex justify-between"><span>男性</span><b>39%</b></div><div class="flex justify-between"><span>その他/不明</span><b>3%</b></div></div>
+      </article>
+      <article class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+        <h2 class="text-xl font-bold">年齢層</h2><p class="mt-1 text-sm text-slate-500">採用候補者層の偏り</p>
+        <div id="ageBars" class="mt-6 space-y-3"></div>
+      </article>
+      <article class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+        <h2 class="text-xl font-bold">閲覧上位の市区町村</h2><p class="mt-1 text-sm text-slate-500">地域別の閲覧集中エリア</p>
+        <div id="cityRanking" class="mt-6 space-y-4"></div>
+      </article>
+    </section>
+
+    <section class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+      <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"><div><h2 class="text-xl font-bold">アクティブ時間帯</h2><p class="mt-1 text-sm text-slate-500">ヒートマップ + AIおすすめ投稿日時</p></div><span class="date-range rounded-full bg-gradient-to-r from-pink-100 to-orange-100 px-4 py-2 text-sm font-semibold text-pink-700">2026-07-01 - 2026-08-03</span></div>
+      <div id="heatmap" class="mt-6"></div>
+      <div class="mt-5 rounded-2xl bg-gradient-to-r from-pink-50 to-orange-50 p-4"><p class="text-sm font-bold">AIおすすめ投稿日時</p><p class="mt-1 text-sm leading-6 text-slate-700">火曜〜木曜の20時〜22時に閲覧集中。採用系リールは水曜20:30、社員紹介系は木曜21:00の投稿を推奨。</p></div>
+    </section>
+
+    <section class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"><div><h2 class="text-xl font-bold">Instagram投稿後分析グラフ</h2><p class="mt-1 text-sm text-slate-500">採用導線ファネル・実数グラフは削除し、投稿別指標に集約</p></div><div id="tabs" class="flex flex-wrap gap-2"></div></div>
+      <div class="mt-6 rounded-2xl bg-gradient-to-r from-slate-50 to-pink-50 p-6"><p class="text-sm font-semibold text-slate-600">表示中：<span id="activeTab">自己紹介リンククリック率</span></p><div class="mt-4 h-48 rounded-2xl bg-white p-4"><svg class="h-full w-full text-pink-500" viewBox="0 0 100 50"><path id="chartLine" d="M4 40 L22 34 L40 28 L58 22 L76 14 L96 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </section>
+
+    <section id="multiAccount" class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+      <h2 class="text-xl font-bold">複数アカウント比較</h2><p class="mt-1 text-sm text-slate-500">isMultipleAccounts=true の場合のみ表示する想定</p>
+      <div class="mt-5 overflow-hidden rounded-2xl ring-1 ring-slate-100"><table class="w-full text-left text-sm"><thead class="bg-slate-50 text-slate-500"><tr><th class="p-4">アカウント</th><th class="p-4">フォロワー</th><th class="p-4">平均再生</th><th class="p-4">リンククリック率</th><th class="p-4">反応率</th></tr></thead><tbody id="benchmarkRows"></tbody></table></div>
+    </section>
+
+    <section class="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-pink-100">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"><div><h2 class="text-xl font-bold">投稿別インサイト</h2><p class="mt-1 text-sm text-slate-500">投稿サムネイル・タイトルクリックでInstagram URLを新規タブ表示</p></div><div class="flex rounded-full bg-slate-100 p-1"><button id="sortScore" class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-pink-600 shadow">評価順</button><button id="sortDate" class="rounded-full px-4 py-2 text-sm font-semibold text-slate-500">投稿順</button></div></div>
+      <div id="posts" class="mt-6 grid gap-6 lg:grid-cols-3"></div>
+    </section>
+
+    <section class="rounded-3xl bg-slate-950 p-6 text-white shadow-sm">
+      <h2 class="text-xl font-bold">AI分析プロンプト改修サンプル</h2>
+      <p class="mt-1 text-sm text-slate-300">投稿本文/ハッシュタグ、属性・時間帯を含む全数値、他アカウント比較を必須コンテキスト化。</p>
+      <pre id="promptSample" class="mt-4 max-h-80 overflow-auto rounded-2xl bg-black/40 p-4 text-xs leading-5 text-slate-200"></pre>
+    </section>
+  </main>
+
+  <script>
+    const posts = [
+      {id:'p1', title:'若手社員の1日密着', caption:'入社2年目の社員に密着。朝会から商談準備、先輩との振り返りまで、リアルな働き方を紹介。', hashtags:['#採用','#新卒採用','#社員紹介','#営業職'], thumbnailUrl:'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop', instagramUrl:'https://www.instagram.com/', postedAt:'2026-07-28', views:18500, profileAccesses:940, bioLinkClicks:122, likes:410, comments:28, saves:96, shares:54},
+      {id:'p2', title:'面接で見ているポイント3選', caption:'採用担当が面接で見ているポイントを3つに整理。応募前の不安を解消する投稿。', hashtags:['#面接対策','#中途採用','#転職活動','#採用担当'], thumbnailUrl:'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&auto=format&fit=crop', instagramUrl:'https://www.instagram.com/', postedAt:'2026-07-22', views:12600, profileAccesses:670, bioLinkClicks:88, likes:310, comments:19, saves:140, shares:33},
+      {id:'p3', title:'オフィス紹介ツアー', caption:'働く場所の雰囲気を伝えるため、執務エリア、会議室、休憩スペースを短尺で紹介。', hashtags:['#職場紹介','#会社紹介','#採用動画','#オフィスツアー'], thumbnailUrl:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&auto=format&fit=crop', instagramUrl:'https://www.instagram.com/', postedAt:'2026-07-12', views:8200, profileAccesses:390, bioLinkClicks:31, likes:188, comments:9, saves:44, shares:16}
+    ];
+    const ageData = [{label:'18-24',value:22},{label:'25-34',value:41},{label:'35-44',value:24},{label:'45-54',value:10},{label:'55+',value:3}];
+    const cities = [{city:'東京都渋谷区',count:2380},{city:'大阪市北区',count:1480},{city:'横浜市西区',count:960},{city:'名古屋市中村区',count:730},{city:'福岡市博多区',count:690}];
+    const heat = [[12,18,24,31,42,55,62],[15,21,28,36,49,68,74],[18,24,33,44,63,80,92],[16,22,30,41,59,77,88],[14,20,27,38,54,70,81],[10,16,21,29,41,57,69]];
+    const benchmarks = [{accountName:'@benchmark_recruit_a',followers:12400,avgViews:14200,rate:9.8,ir:3.4},{accountName:'@benchmark_recruit_b',followers:8600,avgViews:9700,rate:7.1,ir:2.9}];
+    const fmt = n => new Intl.NumberFormat('ja-JP').format(n);
+    const pct = (a,b) => b ? Math.round((a/b)*1000)/10 : 0;
+
+    function syncDateRange(){ const s=startDate.value, e=endDate.value; document.querySelectorAll('.date-range').forEach(x=>x.textContent=`${s} - ${e}`); buildPrompt(); }
+    startDate.onchange = syncDateRange; endDate.onchange = syncDateRange;
+
+    ageBars.innerHTML = ageData.map(x=>`<div><div class="mb-1 flex justify-between text-sm"><span>${x.label}</span><b>${x.value}%</b></div><div class="h-3 rounded-full bg-slate-100"><div class="h-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-orange-400" style="width:${x.value}%"></div></div></div>`).join('');
+    const maxCity = Math.max(...cities.map(x=>x.count));
+    cityRanking.innerHTML = cities.map((x,i)=>`<div><div class="mb-1 flex justify-between text-sm"><span class="font-medium">${i+1}. ${x.city}</span><b>${fmt(x.count)}</b></div><div class="h-2 rounded-full bg-slate-100"><div class="h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" style="width:${x.count/maxCity*100}%"></div></div></div>`).join('');
+    const days=['月','火','水','木','金','土'], hours=['8時','11時','14時','17時','20時','22時','24時'];
+    heatmap.innerHTML = `<div class="grid grid-cols-[40px_repeat(7,1fr)] gap-2 text-xs text-slate-500"><div></div>${hours.map(h=>`<div class="text-center">${h}</div>`).join('')}${heat.map((row,i)=>`<div class="flex items-center font-semibold text-slate-600">${days[i]}</div>${row.map(v=>`<div class="h-9 rounded-lg" style="background-color:rgba(219,39,119,${Math.max(v/100,.12)})" title="${v}"></div>`).join('')}`).join('')}</div>`;
+    benchmarkRows.innerHTML = benchmarks.map(x=>`<tr class="border-t border-slate-100"><td class="p-4 font-semibold">${x.accountName}</td><td class="p-4">${fmt(x.followers)}</td><td class="p-4">${fmt(x.avgViews)}</td><td class="p-4">${x.rate}%</td><td class="p-4">${x.ir}%</td></tr>`).join('');
+
+    const tabs = ['Instagram再生数','プロフィールアクセス','自己紹介リンククリック率','インタラクション'];
+    tabs.innerHTML = '';
+    document.getElementById('tabs').innerHTML = tabs.map(t=>`<button class="tab rounded-full px-4 py-2 text-sm font-semibold transition ${t==='自己紹介リンククリック率'?'bg-gradient-to-r from-pink-500 to-orange-400 text-white shadow':'bg-white text-slate-600 ring-1 ring-pink-100 hover:bg-pink-50'}" data-tab="${t}">${t}</button>`).join('');
+    document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab').forEach(b=>b.className='tab rounded-full px-4 py-2 text-sm font-semibold transition bg-white text-slate-600 ring-1 ring-pink-100 hover:bg-pink-50');btn.className='tab rounded-full px-4 py-2 text-sm font-semibold transition bg-gradient-to-r from-pink-500 to-orange-400 text-white shadow';activeTab.textContent=btn.dataset.tab;chartLine.setAttribute('d', btn.dataset.tab==='自己紹介リンククリック率'?'M4 40 L22 34 L40 28 L58 22 L76 14 L96 8':'M4 42 L20 34 L36 37 L52 24 L68 18 L96 6');});
+
+    function renderPosts(mode='score'){
+      const sorted = [...posts].sort((a,b)=> mode==='date' ? new Date(b.postedAt)-new Date(a.postedAt) : ((b.views*.4+b.saves*50+b.bioLinkClicks*80+(b.likes+b.comments+b.shares)*10)-(a.views*.4+a.saves*50+a.bioLinkClicks*80+(a.likes+a.comments+a.shares)*10)));
+      document.getElementById('posts').innerHTML = sorted.map(p=>`<article class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-pink-100"><a href="${p.instagramUrl}" target="_blank" rel="noreferrer"><img src="${p.thumbnailUrl}" alt="${p.title}" class="h-48 w-full object-cover transition hover:scale-[1.02]"></a><div class="p-5"><a href="${p.instagramUrl}" target="_blank" rel="noreferrer" class="text-lg font-bold hover:text-pink-600">${p.title}</a><p class="mt-1 text-sm text-slate-500">${p.postedAt}</p><p class="mt-3 line-clamp-3 text-sm leading-6 text-slate-700">${p.caption}</p><div class="mt-3 flex flex-wrap gap-2">${p.hashtags.map(h=>`<span class="rounded-full bg-pink-50 px-3 py-1 text-xs font-semibold text-pink-600">${h}</span>`).join('')}</div><div class="mt-5 grid grid-cols-2 gap-3 text-sm"><div class="rounded-xl bg-slate-50 p-3"><p class="text-slate-500">再生数</p><p class="font-bold">${fmt(p.views)}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-slate-500">自己紹介リンククリック率</p><p class="font-bold">${pct(p.bioLinkClicks,p.profileAccesses)}% <span class="text-xs text-slate-500">(${fmt(p.bioLinkClicks)} / ${fmt(p.profileAccesses)})</span></p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-slate-500">インタラクション</p><p class="font-bold">${fmt(p.likes+p.comments+p.saves+p.shares)}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-slate-500">保存</p><p class="font-bold">${fmt(p.saves)}</p></div></div></div></article>`).join('');
+    }
+    sortScore.onclick=()=>{sortScore.className='rounded-full bg-white px-4 py-2 text-sm font-semibold text-pink-600 shadow';sortDate.className='rounded-full px-4 py-2 text-sm font-semibold text-slate-500';renderPosts('score')};
+    sortDate.onclick=()=>{sortDate.className='rounded-full bg-white px-4 py-2 text-sm font-semibold text-pink-600 shadow';sortScore.className='rounded-full px-4 py-2 text-sm font-semibold text-slate-500';renderPosts('date')};
+    renderPosts();
+
+    function buildPrompt(){
+      promptSample.textContent = `あなたはInstagram採用アカウント改善に特化したSNS分析AIです。\n\n# 分析対象\n- 企業名: ${companyName.value}\n- Instagramアカウント: @ascentbusiness_consulting\n- 対象期間: ${startDate.value} - ${endDate.value}\n\n# 必須コンテキスト1：実際の投稿内容・本文・ハッシュタグ\n${posts.map((p,i)=>`投稿${i+1}: ${p.title}\n本文: ${p.caption}\nハッシュタグ: ${p.hashtags.join(' ')}\n再生数: ${p.views} / プロフィールアクセス: ${p.profileAccesses} / 自己紹介リンククリック: ${p.bioLinkClicks}`).join('\n\n')}\n\n# 必須コンテキスト2：属性・地域・時間帯を含む全数値データ\n男女比 女性58% 男性39% その他3%\n年齢層: ${ageData.map(x=>`${x.label} ${x.value}%`).join(', ')}\n閲覧上位市区町村: ${cities.map(x=>`${x.city} ${x.count}`).join(', ')}\nアクティブ時間帯: 火曜〜木曜20-22時が高反応\n\n# 必須コンテキスト3：他アカウント・ベンチマーク比較\n${benchmarks.map(x=>`${x.accountName}: 平均再生${x.avgViews}, リンククリック率${x.rate}%, 反応率${x.ir}%`).join('\n')}\n\n# 出力要件\n1. 全体サマリー\n2. 投稿別の勝ちパターン\n3. 自己紹介リンククリック率の改善仮説\n4. 属性・地域・時間帯から見た投稿戦略\n5. ベンチマーク比較\n6. 次回投稿企画案`;
+    }
+    companyName.oninput = buildPrompt; buildPrompt(); syncDateRange();
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0"
+  },
+  "scripts": {
+    "test": "node --check app.js && node --check lib/research/semiauto.js && node --check lib/monthly-report.js && node --check lib/google-sheets.js && node --check local-server.js && node tests/research-semiauto.test.js && node tests/monthly-report.test.js"
+  }
+}
