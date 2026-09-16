@@ -6,6 +6,9 @@
     "googleapis": "^144.0.0"
   },
   "scripts": {
-    "test": "node --check app.js && node --check lib/research/semiauto.js && node --check lib/monthly-report.js && node --check lib/google-sheets.js && node --check local-server.js && node tests/research-semiauto.test.js && node tests/monthly-report.test.js"
+    "test": "node --check app.js && node --check lib/research/semiauto.js && node --check lib/monthly-report.js && node --check lib/google-sheets.js && node --check local-server.js && node tests/research-semiauto.test.js && node tests/monthly-report.test.js",
+    "health": "node scripts/health-check.js",
+    "worker:daily": "node scripts/worker-daily.js",
+    "worker:weekly": "node scripts/worker-weekly.js"
   }
 }

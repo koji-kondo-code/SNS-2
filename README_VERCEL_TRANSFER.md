@@ -1,9 +1,9 @@
-# kondo-sns-vercel 移管・再デプロイ手順
+# sns-agent 移管・再デプロイ手順
 
 ## 目的
 このフォルダは、現在公開中の以下ページを近藤さん自身のVercelアカウントへ移すための静的サイト一式です。
 
-- 現在URL: https://kondo-sns-vercel.vercel.app/
+- 現在URL: https://sns-agent.vercel.app/
 - プライバシーポリシー: /privacy
 - データ削除案内: /data-deletion
 

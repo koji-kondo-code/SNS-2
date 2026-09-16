@@ -17,6 +17,7 @@ const routes = {
   '/api/competitor/weekly-research': require('./api/competitor/weekly-research'),
   '/api/research/semiauto': require('./api/research/semiauto'),
   '/api/monthly-report': require('./api/monthly-report'),
+  '/api/ops/health': require('./api/ops/health'),
   '/api/competitor-candidates': require('./api/competitor-candidates'),
   '/api/plans': require('./api/plans'),
 };
@@ -51,8 +52,11 @@ const server = http.createServer((req, res) => {
   }
   let file = u.pathname === '/' ? 'index.html' : u.pathname.replace(/^\//, '');
   file = path.normalize(file).replace(/^\.\.(\/|$)/, '');
-  const full = path.join(root, file);
-  if (!full.startsWith(root) || !fs.existsSync(full) || fs.statSync(full).isDirectory()) return send(res, 404, 'Not found');
+  let full = path.join(root, file);
+  if (full.startsWith(root) && fs.existsSync(full) && fs.statSync(full).isDirectory()) {
+    full = path.join(full, 'index.html');
+  }
+  if (!full.startsWith(root) || !fs.existsSync(full)) return send(res, 404, 'Not found');
   send(res, 200, fs.readFileSync(full), mime(full));
 });
 

@@ -1,7 +1,7 @@
 const { json } = require('../../lib/meta');
 const { apifyTokenInfo, actorId, publicInstagramScraperActor } = require('../../lib/apify');
 
-const LEGACY_STATUS_URL = process.env.APIFY_LEGACY_STATUS_URL || 'https://kondo-sns-vercel.vercel.app/api/apify/status';
+const LEGACY_STATUS_URL = process.env.APIFY_LEGACY_STATUS_URL || 'https://sns-agent.vercel.app/api/apify/status';
 
 async function legacyStatus() {
   if (process.env.DISABLE_APIFY_LEGACY_STATUS === '1') return null;
