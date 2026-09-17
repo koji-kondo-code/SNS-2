@@ -23,7 +23,9 @@ function parseDelimitedList(value) {
 }
 
 function configuredAccounts() {
-  const jsonConfig = process.env.INSTAGRAM_ACCOUNTS_JSON || process.env.META_INSTAGRAM_ACCOUNTS_JSON;
+  const jsonConfig = process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON
+    || process.env.INSTAGRAM_ACCOUNTS_JSON
+    || process.env.META_INSTAGRAM_ACCOUNTS_JSON;
   if (jsonConfig) {
     try {
       const parsed = JSON.parse(jsonConfig);
@@ -92,8 +94,11 @@ async function discoveredAccountsFromPages(userToken) {
 
 async function effectiveAccounts() {
   const manual = configuredAccounts();
+  if (manual.length && process.env.INSTAGRAM_AUTO_DISCOVER_ACCOUNTS !== 'true') {
+    return manual;
+  }
   const discovered = await discoveredAccountsFromPages(process.env.META_ACCESS_TOKEN);
-  const byId = new Map([...manual, ...discovered].map((a) => [a.igBusinessAccountId, a]));
+  const byId = new Map([...discovered, ...manual].map((a) => [a.igBusinessAccountId, a]));
   return [...byId.values()];
 }
 
