@@ -1,18 +1,29 @@
 const { json } = require('../lib/meta');
 const { runMonthlyReport, runScheduledMonthlyReports, listMonthlyReport } = require('../lib/monthly-report');
 
+function hasVercelCronSignal(req) {
+  const userAgent = String(req.headers?.['user-agent'] || '').toLowerCase();
+  return Boolean(
+    req.headers?.['x-vercel-cron'] ||
+    req.headers?.['x-vercel-cron-schedule'] ||
+    req.headers?.['x-vercel-cron-auth-token'] ||
+    userAgent.includes('vercel-cron')
+  );
+}
+
 function isAuthorizedCron(req) {
-  if (req.headers?.['x-vercel-cron']) return true;
-  if (!process.env.CRON_SECRET) return false;
   const header = String(req.headers?.authorization || '');
   const querySecret = String(req.query?.secret || '');
-  return header === `Bearer ${process.env.CRON_SECRET}` || querySecret === process.env.CRON_SECRET;
+  if (process.env.CRON_SECRET) {
+    return header === `Bearer ${process.env.CRON_SECRET}` || querySecret === process.env.CRON_SECRET;
+  }
+  return hasVercelCronSignal(req);
 }
 
 module.exports = async function handler(req, res) {
   try {
     if (req.method === 'POST') return json(res, 200, await runMonthlyReport(req.body || {}));
-    if (req.method === 'GET' && (req.query?.cron || req.headers?.['x-vercel-cron'])) {
+    if (req.method === 'GET' && (req.query?.cron || hasVercelCronSignal(req))) {
       if (!isAuthorizedCron(req)) return json(res, 401, { ok: false, error: 'cron_unauthorized' });
       const kind = String(req.query?.cron || 'auto');
       if (!['daily', 'monthly', 'auto'].includes(kind)) return json(res, 400, { ok: false, error: 'invalid_cron_kind' });
