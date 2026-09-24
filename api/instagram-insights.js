@@ -128,7 +128,7 @@ function publicInsightErrors(results) {
 async function getAccountInsightBundles(igId, token, since, until) {
   const common = { access_token: token, since, until };
   const requests = [
-    tryGraph(`/${igId}/insights`, { ...common, metric: 'reach,profile_views,website_clicks,views', metric_type: 'total_value', period: 'day' }, 'account_totals_day'),
+    tryGraph(`/${igId}/insights`, { ...common, metric: 'reach,profile_views,website_clicks,views,total_interactions', metric_type: 'total_value', period: 'day' }, 'account_totals_day'),
     tryGraph(`/${igId}/insights`, { ...common, metric: 'follower_count', period: 'day' }, 'follower_count_day'),
     tryGraph(`/${igId}/insights`, { access_token: token, metric: 'follower_demographics', metric_type: 'total_value', period: 'lifetime', breakdown: 'age,gender' }, 'follower_demographics_age_gender'),
     tryGraph(`/${igId}/insights`, { access_token: token, metric: 'follower_demographics', metric_type: 'total_value', period: 'lifetime', breakdown: 'city' }, 'follower_demographics_city'),
