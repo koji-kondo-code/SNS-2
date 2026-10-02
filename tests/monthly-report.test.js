@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { validatePayload, buildRowsFromInsights, CONTENT_TAB, MONTHLY_TAB, addDaysKey } = require('../lib/monthly-report');
+const { validatePayload, buildRowsFromInsights, CONTENT_TAB, MONTHLY_TAB, addDaysKey, configuredCronAccounts } = require('../lib/monthly-report');
 
 const missing = validatePayload({ targetMonth: '2026-08', dataType: 'both', targetTab: MONTHLY_TAB });
 assert.strictEqual(missing.ok, false);
@@ -48,5 +48,18 @@ assert.strictEqual(addDaysKey('2026-08-17', -7), '2026-08-10');
 assert.deepStrictEqual(sevenDayRows.contentRows.map((r) => r.postId), ['extract-me']);
 assert.strictEqual(sevenDayRows.contentRows[0].postAgeDays, 7);
 assert.strictEqual(sevenDayRows.contentRows[0].accountCategory, '中途向け');
+
+const originalAccountsJson = process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON;
+const originalLegacyAccount = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
+delete process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON;
+delete process.env.INSTAGRAM_ACCOUNTS_JSON;
+delete process.env.META_INSTAGRAM_ACCOUNTS_JSON;
+process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID = '17841475590955588';
+const cronAccounts = configuredCronAccounts();
+assert.deepStrictEqual(cronAccounts, ['abc_midcareer', 'abc_newgrad']);
+if (originalAccountsJson == null) delete process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON;
+else process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON = originalAccountsJson;
+if (originalLegacyAccount == null) delete process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
+else process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID = originalLegacyAccount;
 
 console.log('monthly-report tests passed');
