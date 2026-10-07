@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { validatePayload, buildRowsFromInsights, CONTENT_TAB, MONTHLY_TAB, addDaysKey, configuredCronAccounts } = require('../lib/monthly-report');
+const { validatePayload, buildRowsFromInsights, CONTENT_TAB, MONTHLY_TAB, addDaysKey, configuredCronAccounts, resolveReportTab, allowedReportTabs, scopeAllows } = require('../lib/monthly-report');
 
 const missing = validatePayload({ targetMonth: '2026-08', dataType: 'both', targetTab: MONTHLY_TAB });
 assert.strictEqual(missing.ok, false);
@@ -12,6 +12,20 @@ assert(badTab.errors.some((e) => e.includes('許可範囲外')));
 const valid = validatePayload({ targetMonth: '2026-08', account: '@ascentbusiness_consulting', dataType: 'content', targetTab: CONTENT_TAB });
 assert.strictEqual(valid.ok, true);
 assert.strictEqual(valid.normalized.account, 'ascentbusiness_consulting');
+assert.strictEqual(resolveReportTab('abc_midcareer', 'content'), 'コンテンツ別_中途');
+assert.strictEqual(resolveReportTab('abc_newgrad', 'content'), 'コンテンツ別_新卒');
+assert.strictEqual(resolveReportTab('abc_midcareer', 'monthly'), '月次全体_中途');
+assert.strictEqual(resolveReportTab('abc_newgrad', 'monthly'), '月次全体_新卒');
+assert.strictEqual(resolveReportTab('basispoint_tokyo', 'monthly'), '月次全体_BasisPoint');
+assert.strictEqual(resolveReportTab('basispoint.tokyo', 'monthly'), '月次全体_BasisPoint');
+assert.strictEqual(scopeAllows('basispoint_tokyo', 'content'), false);
+assert.strictEqual(scopeAllows('basispoint_tokyo', 'monthly'), true);
+assert(allowedReportTabs().includes('コンテンツ別_中途'));
+assert(allowedReportTabs().includes('月次全体_BasisPoint'));
+
+const routed = validatePayload({ targetMonth: '2026-08', account: 'abc_midcareer', dataType: 'content' });
+assert.strictEqual(routed.ok, true);
+assert.strictEqual(routed.normalized.targetTab, 'コンテンツ別_中途');
 
 const rows = buildRowsFromInsights({
   profile: { username: 'ascentbusiness_consulting', followers_count: 1000 },
@@ -57,6 +71,13 @@ delete process.env.META_INSTAGRAM_ACCOUNTS_JSON;
 process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID = '17841475590955588';
 const cronAccounts = configuredCronAccounts();
 assert.deepStrictEqual(cronAccounts, ['abc_midcareer', 'abc_newgrad']);
+process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON = JSON.stringify([
+  { key: 'abc_midcareer', reportScopes: ['content', 'monthly'] },
+  { key: 'abc_newgrad', reportScopes: ['content', 'monthly'] },
+  { key: 'basispoint_tokyo', reportScopes: ['monthly'] },
+]);
+assert.deepStrictEqual(configuredCronAccounts('daily'), ['abc_midcareer', 'abc_newgrad']);
+assert.deepStrictEqual(configuredCronAccounts('monthly'), ['abc_midcareer', 'abc_newgrad', 'basispoint_tokyo']);
 if (originalAccountsJson == null) delete process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON;
 else process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON = originalAccountsJson;
 if (originalLegacyAccount == null) delete process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
