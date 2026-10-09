@@ -62,6 +62,8 @@ assert.strictEqual(addDaysKey('2026-08-17', -7), '2026-08-10');
 assert.deepStrictEqual(sevenDayRows.contentRows.map((r) => r.postId), ['extract-me']);
 assert.strictEqual(sevenDayRows.contentRows[0].postAgeDays, 7);
 assert.strictEqual(sevenDayRows.contentRows[0].accountCategory, '中途向け');
+assert.strictEqual(sevenDayRows.contentRows[0].profileAccess, '取得不可');
+assert.strictEqual(sevenDayRows.contentRows[0].linkClicks, '取得不可');
 
 const originalAccountsJson = process.env.INSTAGRAM_BUSINESS_ACCOUNTS_JSON;
 const originalLegacyAccount = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
